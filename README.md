@@ -1,24 +1,37 @@
-# README
+# USER AUTHENTICATION
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Table Data
 
-Things you may want to cover:
+### USER
 
-* Ruby version
+| Key | DataType | Validation |
+| ------ | ------ | ------ |
+| id | integer | uniq |
+| username | string | not null, uniq |
+| email | string | not null, uniq |
+| password | string | not null |
+| password_reset_token | string | not null |
+| password_reset_sent_at | datetime | not null |
+| created_at | datetime | not null |
+| updated_at | datetime | not null |
 
-* System dependencies
+## Get started
 
-* Configuration
+### Create Database & migrate
 
-* Database creation
+```sh
+rails db:create db:migrate
+```
 
-* Database initialization
+### Start rails server
 
-* How to run the test suite
+```sh
+rails s
+```
+Go to the path [http://localhost:3000](http://localhost:3000)
 
-* Services (job queues, cache servers, search engines, etc.)
+### Test with rspec
 
-* Deployment instructions
-
-* ...
+```sh
+bundle exec rspec spec
+```
