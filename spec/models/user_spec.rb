@@ -16,7 +16,7 @@ RSpec.describe User, type: :model do
     it { should validate_length_of(:password).is_at_least(8) }
   end
 
-  describe 'befor save methods' do
+  describe 'before save methods' do
     context 'responds to its methods' do
       it { expect(User.new).to respond_to(:set_username) }
     end
@@ -28,6 +28,23 @@ RSpec.describe User, type: :model do
       it 'set username as email prefix' do
         user = User.create(user_params)
         expect(user.username).to eq('example')
+      end
+    end
+  end
+
+  describe 'instance methods' do
+    context 'responds to its methods' do
+      it { expect(User.new).to respond_to(:send_password_reset) }
+    end
+
+    context 'update reset fields' do
+      let(:user) { create(:user) }
+      it 'sets password_reset_token and password_reset_sent_at' do
+        expect(UserMailer).to receive(:password_reset)
+          .and_return(double('UserMailer', deliver: true))
+        user.send_password_reset
+        expect(user.password_reset_sent_at).not_to eq(nil)
+        expect(user.password_reset_token).not_to eq(nil)
       end
     end
   end

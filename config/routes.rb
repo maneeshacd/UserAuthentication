@@ -7,5 +7,7 @@ Rails.application.routes.draw do
   post :sessions, to: 'sessions#create', as: :sessions
   get :logout, to: 'sessions#destroy'
 
+  resources :password_resets
+
   match '*path' => redirect('/'), via: :get
 end
